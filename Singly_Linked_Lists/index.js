@@ -1,3 +1,5 @@
+
+// creating node class
 class Node {
   constructor(val) {
     this.val = val;
@@ -5,6 +7,8 @@ class Node {
   }
 }
 
+
+// creating singley linked list
 class SingleyLinkedList {
   constructor() {
     this.head = null;
@@ -24,10 +28,20 @@ class SingleyLinkedList {
     this.length++;
     return this;
   }
+
+  traverse() {
+    let current = this.head;
+    while (current) {
+      console.log(current.val);
+      current = current.next;
+    }
+  }
 }
 
 var list = new SingleyLinkedList();
 list.push("Hello");
+list.push("Goodbye");
+list.push("Next");
 // list.push("goodbye");
 // var first = new Node("Hi");
 
