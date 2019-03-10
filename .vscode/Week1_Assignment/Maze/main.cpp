@@ -26,10 +26,10 @@ void mazeTester()
     cout << "isClear(4,12) returns: " << myMaze.isClear(4, 12) << "; should be 0." << endl;
     cout << "Visited(1,1) returns: " << myMaze.visited(1, 1) << "; should be 0." << endl
          << endl;
-    Creature myCreature;
-    myMaze.display();
-    MazeSolver myMazeSolver;
-    myMazeSolver.goNorth(myCreature, myMaze);
+    // Creature myCreature;
+    // myMaze.display();
+    // MazeSolver myMazeSolver;
+    // myMazeSolver.goNorth(myCreature, myMaze);
 }
 
 int main()
