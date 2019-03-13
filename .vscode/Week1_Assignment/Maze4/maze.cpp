@@ -41,6 +41,7 @@ class Maze
 
     int end_row, end_col;
 
+// setting the dimensions of the maze
     char maze[11][10];
 };
 
