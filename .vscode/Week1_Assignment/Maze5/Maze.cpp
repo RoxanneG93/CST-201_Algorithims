@@ -5,27 +5,16 @@
 
 // // #include "olcConsoleGameEngine.h";
 
-// class Maze
+// class Maze()
 // {
-//   public:
-//     // constructor to initialize the maze size
-//     Maze()
-//     {
-//         int width = 40;
-//         int height = 25;
-//         int *maze;
 
-//         // setting area of the maze
-//         maze = new int[width * height];
+//     int width = 40;
+//     int height = 25;
+//     int *maze;
 
-//         // memset the starting values of maze
-//         memset(maze, 0x00, width * height);
+//     Maze = new int[width * height];
 
-//         // push in the starting pair of coordinates
-//         mazeStack.push(make_pair(0, 0));
-//     }
-
-//     // A class that defines constants of the cells
+//     // A class that defines constants
 //     enum
 //     {
 //         cell_path_N = 0x01,
@@ -36,26 +25,12 @@
 
 //     };
 
-//     int visitedCells;
+// // tracking how many cells visited
+//     int cellsVisited;
 
-//     // stack with type of pair will allow us to store multiple int (x, y)
-//     stack<pair<int, int>> mazeStack;
+// // using 'pair" type allows to 2 int at the same time. x, y
+//     stack<pair<int, int>> m_stack;
 
-//     maze[0] = cell_VISITED;
-
-//     visitedCells = 1;
-
-//     // iterate through each of the cells and print to console
-//     for (int x = 0; x < width; x++)
-//     {
-//         for (int y = 0; y < height; y++)
-//         {
-//             if (maze[y * width + x] & cell_VISITED)
-//             {
-//                 cout << "S" << endl;
-//             }
-//         }
-//     }
 // };
 
 // int main()

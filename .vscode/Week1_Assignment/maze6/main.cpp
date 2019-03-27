@@ -1,7 +1,5 @@
 #include <iostream>
 #include <fstream>
-
-// what do these do???
 #include <sstream>
 #include <string>
 #include <stdio.h>
@@ -9,51 +7,42 @@
 
 using namespace std;
 
-class Maze
-{
-};
-
 int main()
 {
-
-    // create array to hold input file
-    string grid[12];
+    // Create array to hold input file
+    string txt[12];
     string line;
+
     int i = 0;
+    ifstream file("input_file.txt"); // Get file
+    if (file.is_open())
+    {
+        while (!file.eof())
+        {
+            getline(file, line);
+            txt[i] = line; // For each line in file add to text array
+            i++;
+        }
+    }
+    file.close();
 
-    // this needs more work
-    // // open the file
-    // ifstream file("inputFile.txt");
-    // // cout << input << endl;
-    // if (file.is_open())
-    // {
-    //     // eof checks for end of file has been reached
-    //     // loop while end of file is not reached
-    //     while (!file.eof())
-    //     {
-    //         // each line in txt file is set to string line
-    //         getline(file, line);
-    //         // set each index in grid array to line
-    //         grid[i] = line;
-    //         i++;
-    //     }
-    // }
-    // file.close();
+    // Create file for output
+    ofstream myfile;
+    myfile.open("output_file.txt");
 
-    // Creating the file for output
-    ofstream outputFile;
-    outputFile.open("outputFile.txt");
-
+    // Create height and width
     int height = 11;
     int width = 10;
 
-    string path = ".";
-    string start = "S";
-    string goal = "F";
+    // Create string for different blocks
+    string open = ".";
+    string start = "s";
+    string free = "f";
     string wall = "x";
 
-    string maze[11][10] = {
-        {"S", ".", ".", ".", "x", ".", ".", ".", ".", "."},
+    // Create array of maze
+    string blockArray[11][10] = {
+        {"s", ".", ".", ".", "x", ".", ".", ".", ".", "."},
         {".", "x", "x", "x", ".", ".", "x", "x", "x", "."},
         {".", "x", ".", "x", ".", "x", ".", "x", ".", "."},
         {".", ".", ".", "x", ".", "x", ".", "x", ".", "x"},
@@ -63,30 +52,30 @@ int main()
         {"x", "x", "x", "x", ".", "x", ".", ".", ".", "x"},
         {".", ".", "x", ".", ".", ".", "x", ".", "x", "."},
         {"x", ".", ".", ".", "x", ".", "x", ".", ".", "."},
-        {".", ".", ".", "F", "x", ".", ".", ".", "x", "."},
+        {".", ".", ".", "f", "x", ".", ".", ".", "x", "."},
     };
 
-    // Iterates through the rows of the hard coded maze
+    // Iterates through the rows of the blockArray
     for (int i = 0; i < height; i++)
     {
 
         // run the first time to create numbers
         if (i == 0)
         {
-            outputFile << "   ";
+            myfile << "   ";
             for (int j = 0; j < width; j++)
             {
-                outputFile << " " << j << " ";
+                myfile << " " << j << " ";
             }
-            outputFile << endl;
-            outputFile << "   ";
+            myfile << endl;
+            myfile << "   ";
             for (int j = 0; j < width; j++)
             {
-                outputFile << "_"
-                           << "_"
-                           << "_";
+                myfile << "_"
+                       << "_"
+                       << "_";
             }
-            outputFile << endl;
+            myfile << endl;
         }
 
         // run 3 times to create 3x3 block
@@ -96,17 +85,17 @@ int main()
             // is 1st row in block
             if (h == 1 && i < 10)
             {
-                outputFile << i << " |";
+                myfile << i << " |";
             }
             // is 2nd row in block
             else if (h == 1 && i >= 10)
             {
-                outputFile << i << "|";
+                myfile << i << "|";
             }
             // is 3rd row in block
             else
             {
-                outputFile << "  |";
+                myfile << "  |";
             }
 
             for (int j = 0; j < width; j++)
@@ -116,61 +105,63 @@ int main()
                 {
                     if (k != 1)
                     {
-                        if (maze[i][j] == start)
+                        if (blockArray[i][j] == start)
                         {
-                            outputFile << ".";
+                            myfile << ".";
                         }
-                        else if (maze[i][j] == goal)
+                        else if (blockArray[i][j] == free)
                         {
-                            outputFile << ".";
+                            myfile << ".";
                         }
-                        else if (maze[i][j] == wall)
+                        else if (blockArray[i][j] == wall)
                         {
-                            outputFile << "x";
+                            myfile << "x";
                         }
-                        else if (maze[i][j] == path)
+                        else if (blockArray[i][j] == open)
                         {
-                            outputFile << ".";
+                            myfile << ".";
                         }
                     }
                     else
                     {
-                        if (maze[i][j] == start)
+                        if (blockArray[i][j] == start)
                         {
                             if (h == 1)
                             {
-                                outputFile << "S";
+                                myfile << "s";
                             }
                             else
                             {
-                                outputFile << ".";
+                                myfile << ".";
                             }
                         }
-                        else if (maze[i][j] == goal)
+                        else if (blockArray[i][j] == free)
                         {
                             if (h == 1)
                             {
-                                outputFile << "F";
+                                myfile << "f";
                             }
                             else
                             {
-                                outputFile << ".";
+                                myfile << ".";
                             }
                         }
-                        else if (maze[i][j] == wall)
+                        else if (blockArray[i][j] == wall)
                         {
-                            outputFile << "x";
+                            myfile << "x";
                         }
-                        else if (maze[i][j] == path)
+                        else if (blockArray[i][j] == open)
                         {
-                            outputFile << ".";
+                            myfile << ".";
                         }
                     }
                 }
             }
-            outputFile << endl;
+            myfile << endl;
         }
     }
-    outputFile.close();
+    // write maze to file
+    myfile.close();
+
     return 0;
 }
